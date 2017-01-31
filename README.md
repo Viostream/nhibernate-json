@@ -23,10 +23,10 @@ Using [FluentNHibernate](http://www.fluentnhibernate.org): Simply add a CustomTy
 ```
 
 ## Serialisation Settings
-The package uses an internal converter class that has a few pre-set serialisation settings. All of these can be overridden with the standard Json.Net serialisation settings.
+The package uses an internal worker class that has a few pre-set serialisation settings. All of these can be overridden with the standard Json.Net serialisation settings.
 
 ```c#
-JsonConverter.Configure(x => x.TypeNameHandling = TypeNameHandling.None);
+JsonWorker.Configure(x => x.TypeNameHandling = TypeNameHandling.None);
 ```
 
 ## Compression
