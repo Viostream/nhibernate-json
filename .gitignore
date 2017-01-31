@@ -6,3 +6,6 @@ obj/
 src/packages/
 src/TestResults
 
+src/.nuget/NuGet.exe
+src/NHibernate.Json.Tests/x64/SQLite.Interop.dll
+src/NHibernate.Json.Tests/x86/SQLite.Interop.dll
