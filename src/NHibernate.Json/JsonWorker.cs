@@ -7,16 +7,16 @@
     using Newtonsoft.Json.Serialization;
     using Util;
 
-    public class JsonConvertor
+    public class JsonWorker
     {
         public static readonly JsonSerializerSettings Settings;
 
-        static JsonConvertor()
+        static JsonWorker()
         {
             Settings = new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    Converters = new List<JsonConverter> {new StringEnumConverter()},
+                    Converters = new List<Newtonsoft.Json.JsonConverter> {new StringEnumConverter()},
                     ObjectCreationHandling = ObjectCreationHandling.Auto,
                     ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                     TypeNameHandling = TypeNameHandling.Auto

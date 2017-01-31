@@ -21,7 +21,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
             var compressed = JsonCompressor.Compress(serialised);
             //Assert.Equal();
@@ -34,7 +34,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 100000;
             var compressed = JsonCompressor.Compress(serialised);
             //Assert.Equal();
@@ -47,7 +47,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
             var compressed = JsonCompressor.Compress(serialised);
 
@@ -61,7 +61,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
 
             var decompressed = JsonCompressor.Decompress(serialised);
@@ -74,7 +74,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
             var compressed = JsonCompressor.Compress(serialised, Compressor.Gzip);
             //Assert.Equal();
@@ -87,7 +87,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 100000;
             var compressed = JsonCompressor.Compress(serialised, Compressor.Gzip);
             //Assert.Equal();
@@ -100,7 +100,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
             var compressed = JsonCompressor.Compress(serialised, Compressor.Gzip);
 
@@ -114,7 +114,7 @@
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> { "a", "b" });
 
-            var serialised = JsonConvertor.Serialize(model);
+            var serialised = JsonWorker.Serialize(model);
             JsonCompressor.CompressionThreshold = 10;
 
             var decompressed = JsonCompressor.Decompress(serialised, Compressor.Gzip);

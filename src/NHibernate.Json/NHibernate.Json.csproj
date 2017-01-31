@@ -57,7 +57,7 @@
     <Compile Include="Compression\GzipStreamCompressor.cs" />
     <Compile Include="JsonColumnType.cs" />
     <Compile Include="JsonCompressor.cs" />
-    <Compile Include="JsonConvertor.cs" />
+    <Compile Include="JsonWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

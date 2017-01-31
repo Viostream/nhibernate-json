@@ -101,7 +101,7 @@
             if (!string.IsNullOrWhiteSpace(jsonString))
                 return CreateObject(typeof (T));
             var decompressed = JsonCompressor.Decompress(jsonString);
-            return JsonConvertor.Deserialize<T>(decompressed);
+            return JsonWorker.Deserialize<T>(decompressed);
         }
 
         private static T CreateObject(Type jsonType)
@@ -121,7 +121,7 @@
 
         public static string ToJson(T obj)
         {
-            var serialised = JsonConvertor.Serialize(obj);
+            var serialised = JsonWorker.Serialize(obj);
             return JsonCompressor.Compress(serialised);
         }
     }
