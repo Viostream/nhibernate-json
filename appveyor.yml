@@ -1,0 +1,25 @@
+version: 1.1.{build}
+configuration: Release
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- ps: >-
+	(New-Object Net.WebClient).DownloadFile('https://www.nuget.org/nuget.exe', 'C:\projects\nhibernate-json\src\.nuget\NuGet.exe')
+
+	nuget restore src\NHibernate.Json.sln
+build:
+  project: src/NHibernate.Json.sln
+  publish_nuget: true
+  verbosity: minimal
+
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: IrXJmW9GC83p0k/2pkwEcUs2XJCfnsKERCux75emqy7oFeOo8zinFAo1wLPdTVOs
+	
+	
+	
+
