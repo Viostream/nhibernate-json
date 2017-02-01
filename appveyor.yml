@@ -9,11 +9,6 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
-before_build:
-- ps: >-
-    (New-Object Net.WebClient).DownloadFile('https://www.nuget.org/nuget.exe', 'C:\projects\nhibernate-json\src\.nuget\NuGet.exe')
-
-    nuget restore src\NHibernate.Json.sln
 build:
   project: src/NHibernate.Json.sln
   publish_nuget: true
