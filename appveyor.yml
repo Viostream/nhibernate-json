@@ -20,8 +20,3 @@ build:
   verbosity: minimal
 after_test:
   - cmd: coverage.bat
-
-	
-	
-	
-
