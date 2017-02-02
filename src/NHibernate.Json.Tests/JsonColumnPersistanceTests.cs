@@ -27,7 +27,7 @@ namespace NHibernate.Json.Tests
         }
 
         [Fact]
-        public void CanPersist()
+        public void Persist_NoCompression()
         {
             var session = SessionFactoryProvider.Instance.OpenSession();
 
@@ -49,7 +49,7 @@ namespace NHibernate.Json.Tests
         }
 
         [Fact]
-        public void CanPersistWithCompression()
+        public void Persist_Compression()
         {
             var session = SessionFactoryProvider.Instance.OpenSession();
             JsonCompressor.CompressionThreshold = 10;
@@ -69,6 +69,7 @@ namespace NHibernate.Json.Tests
             Assert.Equal(identifer, entity.Json.Identifier);
             Assert.Equal("AAAAAA", entity.Json.List.First());
             session.Dispose();
+            JsonCompressor.CompressionThreshold = 10000;
         }
 
         public void Dispose()

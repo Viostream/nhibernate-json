@@ -84,6 +84,7 @@
     <Compile Include="JsonColumnPersistanceTests.cs" />
     <Compile Include="Data\ExampleEntity.cs" />
     <Compile Include="Data\ExampleEntityRepository.cs" />
+    <Compile Include="JsonColumnTypeTests.cs" />
     <Compile Include="JsonCompressorTests.cs" />
     <Compile Include="JsonConvertorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

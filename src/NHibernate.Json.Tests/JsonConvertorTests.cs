@@ -18,7 +18,7 @@
         }
 
         [Fact]
-        public void CanSerialiseAsExpected()
+        public void Serialise_Success()
         {
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var model = new ExampleJsonModel(id, new List<string> {"a", "b"});
@@ -29,7 +29,7 @@
         }
 
         [Fact]
-        public void CanDeserialiseAsExpected()
+        public void Deserialise_Success()
         {
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var json = "{\"identifier\":\"" + id + "\",\"list\":[\"a\",\"b\"]}";
@@ -41,7 +41,7 @@
         }
 
         [Fact]
-        public void CanPopulateObject()
+        public void PopulateObject_Success()
         {
             var id = new Guid("209EBBA5-F195-495F-BA68-48C32173BEC5");
             var json = "{\"identifier\":\"" + id + "\",\"list\":[\"a\",\"b\"]}";

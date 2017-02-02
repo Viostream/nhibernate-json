@@ -7,20 +7,13 @@
     {
         public static int CompressionThreshold = 2000;
 
-        public static string Compress(string value, Compressor compressor = Compressor.Zlib)
+        public static string Compress(string value, Compressor compressor = Compressor.Zlib, int threshold = 0)
         {
-            if (!string.IsNullOrEmpty(value) && value.Length < CompressionThreshold)
+            threshold = threshold > 0 ? threshold : CompressionThreshold;
+            if (!string.IsNullOrEmpty(value) && value.Length < threshold)
                 return value;
 
-            switch (compressor)
-            {
-                case Compressor.Gzip:
-                    return GzipStreamCompressor.Compress(value);
-                case Compressor.Zlib:
-                    return DeflateStreamCompressor.Compress(value);
-                default:
-                    return DeflateStreamCompressor.Compress(value);
-            }
+            return compressor == Compressor.Gzip ? GzipStreamCompressor.Compress(value) : DeflateStreamCompressor.Compress(value);
         }
 
         public static string Decompress(string value, Compressor compressor = Compressor.Zlib)
@@ -45,15 +38,7 @@
                 return value;
             }
 
-            switch (compressor)
-            {
-                case Compressor.Gzip:
-                    return GzipStreamCompressor.Decompress(bytes);
-                case Compressor.Zlib:
-                    return DeflateStreamCompressor.Decompress(bytes);
-                default:
-                    return DeflateStreamCompressor.Decompress(bytes);
-            }
+            return compressor == Compressor.Gzip ? GzipStreamCompressor.Decompress(bytes) : DeflateStreamCompressor.Decompress(bytes);
         }
     }
 

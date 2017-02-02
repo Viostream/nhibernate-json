@@ -6,7 +6,7 @@
     using SqlTypes;
     using UserTypes;
 
-    public class JsonColumnType<T> : IUserType
+    public class JsonColumnType<T> : IUserType where T : class
     {
         public Type ReturnedType
         {
@@ -15,41 +15,38 @@
 
         public object Assemble(object cached, object owner)
         {
-            //Used for casching, as our object is immutable we can just return it as is
             return cached;
         }
 
         public object DeepCopy(object value)
         {
-            //We deep copy the Translation by creating a new instance with the same contents
-            if (value == null)
+            var source = value as T;
+            if (source == null)
                 return null;
-            if (value.GetType() != typeof (T))
-                return null;
-            return FromJson(ToJson((T) value));
+            return Deserialise(Serialise(source));
         }
 
         public object Disassemble(object value)
         {
-            //Used for casching, as our object is immutable we can just return it as is
             return value;
         }
 
         public new bool Equals(object x, object y)
         {
-            //Use json-query-string to see if their equal 
-            // on value so we use this implementation
-            if (x == null || y == null)
+            var left = x as T;
+            var right = y as T;
+
+            if (left == null && right == null)
+                return true;
+
+            if (left == null || right == null)
                 return false;
-            if (x.GetType() != typeof (T) || y.GetType() != typeof (T))
-                return false;
-            return ToJson((T) x).Equals(ToJson((T) y));
+
+            return Serialise(left).Equals(Serialise(right));
         }
 
         public int GetHashCode(object x)
         {
-            if (x != null && x.GetType() == typeof (T))
-                return ToJson((T) x).GetHashCode();
             return x.GetHashCode();
         }
 
@@ -60,48 +57,48 @@
 
         public object NullSafeGet(IDataReader rs, string[] names, object owner)
         {
-            //We get the string from the database using the NullSafeGet used to get strings 
-            var jsonString = (string) NHibernateUtil.String.NullSafeGet(rs, names[0]);
-            //And save it in the T object. This would be the place to make sure that your string 
-            //is valid for use with the T class
-            return FromJson(jsonString);
+            var returnValue = NHibernateUtil.String.NullSafeGet(rs, names[0]);
+            var json = returnValue == null ? "{}" : returnValue.ToString();
+            return Deserialise(json);
         }
 
         public void NullSafeSet(IDbCommand cmd, object value, int index)
         {
-            //Set the value using the NullSafeSet implementation for string from NHibernateUtil
+            var column = value as T;
             if (value == null)
             {
-                NHibernateUtil.String.NullSafeSet(cmd, null, index);
+                NHibernateUtil.String.NullSafeSet(cmd, "{}", index);
                 return;
             }
-            value = ToJson((T) value);
+            value = Serialise(column);
             NHibernateUtil.String.NullSafeSet(cmd, value, index);
         }
 
         public object Replace(object original, object target, object owner)
         {
-            //As our object is immutable we can just return the original
             return original;
         }
 
         public SqlType[] SqlTypes
         {
-            get
-            {
-                //We store our translation in a single column in the database that can contain a string
-                var types = new SqlType[1];
-                types[0] = new SqlType(DbType.String);
-                return types;
-            }
+            get { return new SqlType[] { new StringSqlType(8000) }; }
         }
 
-        public static T FromJson(string jsonString)
+        public T Deserialise(string jsonString)
         {
-            if (!string.IsNullOrWhiteSpace(jsonString))
+            if (string.IsNullOrWhiteSpace(jsonString))
                 return CreateObject(typeof (T));
+
             var decompressed = JsonCompressor.Decompress(jsonString);
             return JsonWorker.Deserialize<T>(decompressed);
+        }
+
+        public string Serialise(T obj)
+        {
+            if (obj == null)
+                return "{}";
+            var serialised = JsonWorker.Serialize(obj);
+            return JsonCompressor.Compress(serialised);
         }
 
         private static T CreateObject(Type jsonType)
@@ -119,10 +116,6 @@
             return (T) result;
         }
 
-        public static string ToJson(T obj)
-        {
-            var serialised = JsonWorker.Serialize(obj);
-            return JsonCompressor.Compress(serialised);
-        }
+       
     }
 }
