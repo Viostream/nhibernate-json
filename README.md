@@ -3,7 +3,7 @@ NHibernate Custom Type mapping to Json
 
 This package allows you to map a model to a SQL column storing its contents in Json via serialization. It uses Json.Net for serialisation.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/2nmlybm3y5tfd2yj?svg=true)](https://ci.appveyor.com/project/pvecchiato/nhibernate-json)
+[![Build status](https://ci.appveyor.com/api/projects/status/2nmlybm3y5tfd2yj?svg=true)](https://ci.appveyor.com/api/projects/status/2nmlybm3y5tfd2yj?svg=true)
 [![Coverage Status](https://coveralls.io/repos/github/pvecchiato/nhibernate-json/badge.svg?branch=master)](https://coveralls.io/github/pvecchiato/nhibernate-json?branch=master)
 [![NuGet Badge](https://buildstats.info/nuget/Nhibernate.Json)](https://www.nuget.org/packages/Nhibernate.Json/)
 
