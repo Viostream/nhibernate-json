@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-    using Util;
 
     public class JsonWorker
     {
@@ -25,7 +25,7 @@
 
         public static JsonSerializerSettings Configure(params Action<JsonSerializerSettings>[] actions)
         {
-            actions.ForEach(x => x(Settings));
+            actions.ToList().ForEach(x => x(Settings));
             return Settings;
         }
 
