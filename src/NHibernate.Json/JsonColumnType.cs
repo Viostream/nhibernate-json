@@ -81,7 +81,10 @@
 
         public SqlType[] SqlTypes
         {
-            get { return new SqlType[] { new StringSqlType(8000) }; }
+            get
+            {
+                return new SqlType[] { SqlTypeFactory.GetString(8000) };
+            }
         }
 
         public T Deserialise(string jsonString)
