@@ -1,0 +1,29 @@
+name: Publish to Nuget
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - id: tag
+        uses: Viostream/github-tag-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Write out version
+        run: |
+          version=${{ steps.tag.outputs.new_tag }}
+          sed -i 's|<version>1.2.60</version>|<version>'${version#v}'</version>|' src/NHibernate.Json/NHibernate.Json.nuspec
+      - uses: rohith/publish-nuget@v2
+        with:
+          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
+          PACKAGE_NAME: NHibernate.Json
+          PROJECT_FILE_PATH: src/NHibernate.Json/NHibernate.Json.csproj
+          TAG_COMMIT: false

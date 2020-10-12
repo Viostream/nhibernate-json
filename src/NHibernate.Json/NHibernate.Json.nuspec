@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/pvecchiato/nhibernate-json</projectUrl>
     <summary>NHibernate custom type column mapping to json, with optional compression</summary>
     <description>NHibernate Json column is a custom column mapping that allows you to store complex models as Json in a sql column, with optional and configurable text compression.</description>
-    <copyright>Copyright ©  2017</copyright>
+    <copyright>Copyright ©  2020</copyright>
     <tags> nhibernate json</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.IO" targetFramework="net452" />
