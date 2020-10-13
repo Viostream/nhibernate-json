@@ -19,8 +19,9 @@ jobs:
         cd src
         dotnet test --collect:"XPlat Code Coverage" -r output
         echo "::set-output name=COVERAGE_FILE::$(find output -name '*.xml')"
-    - name: Publish coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/${{ steps.test.outputs.COVERAGE_FILE }}
+    # @TODO restore when we get tests working in lcov mode
+    # - name: Publish coverage to Coveralls
+    #   uses: coverallsapp/github-action@master
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     path-to-lcov: src/${{ steps.test.outputs.COVERAGE_FILE }}
