@@ -1,0 +1,27 @@
+on: ["push", "pull_request"]
+
+name: Run Tests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: ['3.1.x']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+    - id: test
+      run: |
+        cd src
+        dotnet test --collect:"XPlat Code Coverage" -r output
+        echo "::set-output name=COVERAGE_FILE::$(find output -name '*.xml')"
+    # @TODO restore when we get tests working in lcov mode
+    # - name: Publish coverage to Coveralls
+    #   uses: coverallsapp/github-action@master
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     path-to-lcov: src/${{ steps.test.outputs.COVERAGE_FILE }}

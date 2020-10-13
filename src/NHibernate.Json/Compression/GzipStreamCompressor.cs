@@ -16,6 +16,7 @@ namespace NHibernate.Json.Compression
                 {
                     writer.Write(value);
                 }
+
                 return Convert.ToBase64String(memoryStream.ToArray());
             }
         }
