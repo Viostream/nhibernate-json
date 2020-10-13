@@ -28,4 +28,5 @@ jobs:
           PACKAGE_NAME: NHibernate.Json
           PROJECT_FILE_PATH: src/NHibernate.Json/NHibernate.Json.csproj
           VERSION_FILE_PATH: src/NHibernate.Json/NHibernate.Json.nuspec
+          VERSION_REGEX: "^\s*<version>(.*)<\/version>\s*$"
           TAG_COMMIT: false
