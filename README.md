@@ -9,7 +9,7 @@ This package allows you to map a model to a SQL column storing its contents in J
 
 ## Usage
 
-Using [FluentNHibernate](http://www.fluentnhibernate.org): Simply add a CustomType to your existing map class
+Using [FluentNHibernate](https://github.com/nhibernate/fluent-nhibernate): Simply add a CustomType to your existing map class
 
 ```c#
  public class ExampleEntityMap : ClassMap<ExampleEntity>
