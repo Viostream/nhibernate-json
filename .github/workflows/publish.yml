@@ -21,12 +21,11 @@ jobs:
         run: |
           version=${{ steps.tag.outputs.new_tag }}
           sed -i 's|<version>.*</version>|<version>'${version#v}'</version>|' src/NHibernate.Json/NHibernate.Json.nuspec
-          cat src/NHibernate.Json/NHibernate.Json.nuspec
-      - uses: brandedoutcast/publish-nuget@v2
-        with:
-          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-          PACKAGE_NAME: NHibernate.Json
-          PROJECT_FILE_PATH: src/NHibernate.Json/NHibernate.Json.csproj
-          VERSION_FILE_PATH: src/NHibernate.Json/NHibernate.Json.nuspec
-          VERSION_REGEX: ^\s*<version>(.*)<\/version>\s*$
-          TAG_COMMIT: false
+      - name: Build
+        run: dotnet build -c Release src/NHibernate.Json/NHibernate.Json.csproj
+      - name: Package
+        run: |
+          version=${{ steps.tag.outputs.new_tag }}
+          dotnet pack -c Release src/NHibernate.Json/NHibernate.Json.csproj -o . -p:PackageVersion=${version#v}
+      - name: Nuget push
+        run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
