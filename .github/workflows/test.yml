@@ -14,11 +14,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet }}
-    - run: |
-        cd src/NHibernate.Json.Tests
-        dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    - id: test
+      run: |
+        cd src
+        dotnet test --collect:"XPlat Code Coverage" -r output
+        echo '::set-output name=COVERAGE_FILE::$(find output -name '*.xml')'
     - name: Publish coverage to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/NHibernate.Json.Tests/TestResults/coverage.info
+        path-to-lcov: ${{ steps.test.outputs.COVERAGE_FILE }}
