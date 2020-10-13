@@ -6,11 +6,8 @@
 
     public class ExampleEntity
     {
-        protected ExampleEntity()
-        {
-            
-        }
-        
+        protected ExampleEntity() { }
+
         public ExampleEntity(int id, string title, ExampleJsonModel json)
         {
             Id = id;

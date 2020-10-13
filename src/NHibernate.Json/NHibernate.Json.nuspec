@@ -4,26 +4,21 @@
   <metadata>
     <id>NHibernate.Json</id>
     <version>1.2.60</version>
-    <title> NHibernate Json Column</title>
-    <authors>Paul Vecchiato</authors>
-    <owners>Paul Vecchiato</owners>
+    <title>NHibernate Json Column</title>
+    <authors>Viostream</authors>
+    <owners>Viostream</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectUrl>https://github.com/pvecchiato/nhibernate-json</projectUrl>
+    <projectUrl>https://github.com/Viostream/nhibernate-json</projectUrl>
     <summary>NHibernate custom type column mapping to json, with optional compression</summary>
     <description>NHibernate Json column is a custom column mapping that allows you to store complex models as Json in a sql column, with optional and configurable text compression.</description>
     <copyright>Copyright ©  2020</copyright>
-    <tags> nhibernate json</tags>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.IO" targetFramework="net452" />
-      <frameworkAssembly assemblyName="System.Data.DataSetExtensions" targetFramework="net452" />
-    </frameworkAssemblies>
+    <tags>nhibernate json</tags>
     <dependencies>
-      <dependency id="NHibernate" version="3.4.0.4000" />
-      <dependency id="Iesi.Collections" version="3.2.0.4000" />      
-      <dependency id="Newtonsoft.Json" version="7.0.1" />
+      <dependency id="NHibernate" version="5.2.7" />
+      <dependency id="Newtonsoft.Json" version="12.0.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\NHibernate.Json.dll" target="lib\net452\NHibernate.Json.dll" />
+    <file src="bin\Release\NHibernate.Json.dll" target="lib\netstandard2.0\NHibernate.Json.dll" />
   </files>
 </package>
