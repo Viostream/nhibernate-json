@@ -28,4 +28,3 @@ jobs:
           PACKAGE_NAME: NHibernate.Json
           PROJECT_FILE_PATH: src/NHibernate.Json/NHibernate.Json.csproj
           TAG_COMMIT: false
-          VERSION_STATIC: ${{ steps.tag.outputs.new_tag }}
