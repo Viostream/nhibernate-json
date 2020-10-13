@@ -4,23 +4,21 @@ name: Run Tests
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: ['2.1.x', '3.1.x']
     steps:
-
     - uses: actions/checkout@v2
-
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@v1
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
       with:
-        node-version: 10.x
-
-    - name: npm install, make test-coverage
-      run: |
-        npm install
-        make test-coverage
-
-    - name: Coveralls
+        dotnet-version: ${{ matrix.dotnet }}
+    - run: |
+        cd src/NHibernate.Json.Tests
+        dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    - name: Publish coverage to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/NHibernate.Json.Tests/TestResults/coverage.info
