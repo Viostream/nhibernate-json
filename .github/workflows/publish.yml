@@ -20,7 +20,8 @@ jobs:
       - name: Write out version
         run: |
           version=${{ steps.tag.outputs.new_tag }}
-          sed -i 's|<version>1.2.60</version>|<version>'${version#v}'</version>|' src/NHibernate.Json/NHibernate.Json.nuspec
+          sed -i 's|<Version>1.2.60</Version>|<Version>'${version#v}'</Version>|' src/NHibernate.Json/NHibernate.Json.nuspec
+          cat src/NHibernate.Json/NHibernate.Json.nuspec
       - uses: brandedoutcast/publish-nuget@v2
         with:
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
