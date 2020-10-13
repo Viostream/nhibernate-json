@@ -1,16 +1,24 @@
 ﻿namespace NHibernate.Json
 {
     using System;
-    using System.Data;
+    using System.Data.Common;
     using System.Runtime.Serialization;
+    using Engine;
     using SqlTypes;
     using UserTypes;
 
     public class JsonColumnType<T> : IUserType where T : class
     {
-        public Type ReturnedType
+        public Type ReturnedType => typeof(T);
+
+        public bool IsMutable
         {
-            get { return typeof (T); }
+            get { return false; }
+        }
+
+        public SqlType[] SqlTypes
+        {
+            get { return new[] {SqlTypeFactory.GetString(8000)}; }
         }
 
         public object Assemble(object cached, object owner)
@@ -50,28 +58,24 @@
             return x.GetHashCode();
         }
 
-        public bool IsMutable
+        public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
-            get { return false; }
-        }
-
-        public object NullSafeGet(IDataReader rs, string[] names, object owner)
-        {
-            var returnValue = NHibernateUtil.String.NullSafeGet(rs, names[0]);
+            var returnValue = NHibernateUtil.String.NullSafeGet(rs, names[0], session);
             var json = returnValue == null ? "{}" : returnValue.ToString();
             return Deserialise(json);
         }
 
-        public void NullSafeSet(IDbCommand cmd, object value, int index)
+        public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
             var column = value as T;
             if (value == null)
             {
-                NHibernateUtil.String.NullSafeSet(cmd, "{}", index);
+                NHibernateUtil.String.NullSafeSet(cmd, "{}", index, session);
                 return;
             }
+
             value = Serialise(column);
-            NHibernateUtil.String.NullSafeSet(cmd, value, index);
+            NHibernateUtil.String.NullSafeSet(cmd, value, index, session);
         }
 
         public object Replace(object original, object target, object owner)
@@ -79,18 +83,10 @@
             return original;
         }
 
-        public SqlType[] SqlTypes
-        {
-            get
-            {
-                return new SqlType[] { SqlTypeFactory.GetString(8000) };
-            }
-        }
-
         public T Deserialise(string jsonString)
         {
             if (string.IsNullOrWhiteSpace(jsonString))
-                return CreateObject(typeof (T));
+                return CreateObject(typeof(T));
 
             var decompressed = JsonCompressor.Decompress(jsonString);
             return JsonWorker.Deserialize<T>(decompressed);
@@ -118,7 +114,5 @@
 
             return (T) result;
         }
-
-       
     }
 }

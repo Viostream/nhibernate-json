@@ -16,7 +16,7 @@
             Settings = new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    Converters = new List<Newtonsoft.Json.JsonConverter> {new StringEnumConverter()},
+                    Converters = new List<JsonConverter> {new StringEnumConverter()},
                     ObjectCreationHandling = ObjectCreationHandling.Auto,
                     ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
                     TypeNameHandling = TypeNameHandling.Auto
