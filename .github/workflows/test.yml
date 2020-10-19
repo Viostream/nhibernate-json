@@ -15,13 +15,12 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet }}
     - id: test
+      name: Run tests
       run: |
         cd src
-        dotnet test --collect:"XPlat Code Coverage" -r output
-        echo "::set-output name=COVERAGE_FILE::$(find output -name '*.xml')"
-    # @TODO restore when we get tests working in lcov mode
-    # - name: Publish coverage to Coveralls
-    #   uses: coverallsapp/github-action@master
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     path-to-lcov: src/${{ steps.test.outputs.COVERAGE_FILE }}
+        dotnet test /p:CollectCoverage=true /p:CoverletOutput=coverage/ /p:CoverletOutputFormat=lcov
+    - name: Publish coverage to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/NHibernate.Json.Tests/coverage/coverage.info
