@@ -20,7 +20,6 @@ jobs:
       - name: Write out version
         run: |
           version=${{ steps.tag.outputs.new_tag }}
-          sed -i 's|<version>.*</version>|<version>'${version#v}'</version>|' src/NHibernate.Json/NHibernate.Json.nuspec
       - name: Build
         run: dotnet build -c Release src/NHibernate.Json/NHibernate.Json.csproj
       - name: Package
