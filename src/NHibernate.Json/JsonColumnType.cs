@@ -58,14 +58,14 @@
             return x.GetHashCode();
         }
 
-        public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+        public virtual object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
         {
             var returnValue = NHibernateUtil.String.NullSafeGet(rs, names[0], session);
             var json = returnValue == null ? "{}" : returnValue.ToString();
             return Deserialise(json);
         }
 
-        public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
+        public virtual void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
         {
             var column = value as T;
             if (value == null)
@@ -78,7 +78,7 @@
             NHibernateUtil.String.NullSafeSet(cmd, value, index, session);
         }
 
-        public object Replace(object original, object target, object owner)
+        public virtual object Replace(object original, object target, object owner)
         {
             return original;
         }
