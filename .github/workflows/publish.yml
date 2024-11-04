@@ -3,18 +3,18 @@ name: Publish to Nuget
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: "0"
       - id: tag
-        uses: Viostream/github-tag-action@v2
+        uses: Viostream/github-tag-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Write out version
