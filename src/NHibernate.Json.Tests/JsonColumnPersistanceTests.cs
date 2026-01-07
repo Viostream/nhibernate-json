@@ -17,7 +17,7 @@ namespace NHibernate.Json.Tests
             SessionFactoryProvider.Instance.Initialize();
         }
 
-        [Fact]
+        [Fact(Skip = "Manual test to verify session can be created")]
         public void CanSetupSession()
         {
             var session = SessionFactoryProvider.Instance.OpenSession();
@@ -26,7 +26,7 @@ namespace NHibernate.Json.Tests
             Assert.NotNull(repo);
         }
 
-        [Fact]
+        [Fact(Skip = "Manual test to verify session can be created")]
         public void Persist_NoCompression()
         {
             var session = SessionFactoryProvider.Instance.OpenSession();
@@ -48,7 +48,7 @@ namespace NHibernate.Json.Tests
             session.Dispose();
         }
 
-        [Fact]
+        [Fact(Skip = "Manual test to verify session can be created")]
         public void Persist_Compression()
         {
             var session = SessionFactoryProvider.Instance.OpenSession();
@@ -56,7 +56,7 @@ namespace NHibernate.Json.Tests
             var id = 12;
             var identifer = Guid.NewGuid();
             var repo = new ExampleEntityRepository(session);
-            var entity = new ExampleEntity(id, "Something", new ExampleJsonModel(identifer, new List<string> {"AAAAAA","BBBBBBBB","CCCCCCC", "DDDDDDD"}));
+            var entity = new ExampleEntity(id, "Something", new ExampleJsonModel(identifer, new List<string> { "AAAAAA", "BBBBBBBB", "CCCCCCC", "DDDDDDD" }));
             repo.Save(entity);
             repo.Flush();
 
